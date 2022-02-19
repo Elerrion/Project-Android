@@ -36,6 +36,7 @@ public class Gas extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 TextView t=(TextView) view.findViewById(R.id.Max);
                 t.setText(String.valueOf((Float.parseFloat(String.valueOf(i))/100)));
+
             }
 
             @Override

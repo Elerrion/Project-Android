@@ -2,36 +2,70 @@ package com.example.myapplicationlotr;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.Bundle;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    public  TabLayout tabLayout;
-    public  ViewPager viewPager;
+    private  TabLayout tabLayout;
+    private  ViewPager viewPager;
 
-    public String Gps;
+    private String Long,Lat;
+    private Float GV;
+    private Integer SS,TS, US;
+    private LocationManager locationManager;
+
+    public Integer getSS(){
+        return SS;
+    }
+
+    public void setSS(Integer SS) {
+        this.SS = SS;
+    }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
+        ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},1);
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                Long = String.valueOf(location.getLongitude());
+                Lat = String.valueOf(location.getLatitude());
+            }
+        });
+
+        SS =100;
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
@@ -89,4 +123,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
