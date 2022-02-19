@@ -1,21 +1,31 @@
 package com.example.myapplicationlotr;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Set;
-
 public class MainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public  TabLayout tabLayout;
+    public  ViewPager viewPager;
+
+    public String Gps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("Settings"));
         tabLayout.addTab(tabLayout.newTab().setText("Gas"));
+        tabLayout.addTab(tabLayout.newTab().setText("Smoke"));
+        tabLayout.addTab(tabLayout.newTab().setText("Temp"));
+        tabLayout.addTab(tabLayout.newTab().setText("Ultraviolet"));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
@@ -37,8 +50,17 @@ public class MainActivity extends AppCompatActivity {
                         Settings setting = new Settings();
                         return setting;
                     case 1:
-                        Sensor sensor = new Sensor();
-                        return sensor;
+                        Gas gas = new Gas();
+                        return gas;
+                    case 2:
+                        Smoke smoke = new Smoke();
+                        return smoke;
+                    case 3:
+                        Temp temp = new Temp();
+                        return temp;
+                    case 4:
+                        Ultra ultra = new Ultra();
+                        return ultra;
                     default:
                         return null;
 

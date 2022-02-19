@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,27 +20,6 @@ import android.widget.Toast;
 
 public class Settings extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Settings() {
-        // Required empty public constructor
-    }
-    // TODO: Rename and change types and number of parameters
-    public static Settings newInstance(String param1, String param2) {
-        Settings fragment = new Settings();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +62,7 @@ public class Settings extends Fragment {
             }
 
         });
+
         Button sensor = (Button) view.findViewById(R.id.NSensor);
         sensor.setOnClickListener(new View.OnClickListener() {
 
@@ -111,6 +90,7 @@ public class Settings extends Fragment {
                                     (mSpiner.getSelectedItem().toString().equalsIgnoreCase("Temp Sensor") && lower >= -5 && upper <= 80 && lower <= upper) ||
                                     (mSpiner.getSelectedItem().toString().equalsIgnoreCase("Ultraviolet Sensor") && lower >= 0 && upper <= 11 && lower <= upper)) {
                                 Toast.makeText(getActivity(), mSpiner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+
                             } else {
                                 Toast.makeText(getActivity(), "Out of Bounds", Toast.LENGTH_SHORT).show();
                             }
