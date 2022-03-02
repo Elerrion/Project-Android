@@ -13,7 +13,7 @@ public class AndroidSubscriber implements MqttCallback {
     MemoryPersistence persistence = new MemoryPersistence();
     MqttClient subClient;
 
-    private int deviceID = -1;
+    private str deviceID = -1;
     private double[] coordinates = new double[2];
 
 
@@ -67,7 +67,7 @@ public class AndroidSubscriber implements MqttCallback {
 
         // device ID
         try {
-            deviceID = Integer.parseInt(splits[0]);
+            deviceID = splits[0];
         } catch (NumberFormatException e) {
             System.out.println("Error in reading device ID from Android device.");
             e.printStackTrace();
